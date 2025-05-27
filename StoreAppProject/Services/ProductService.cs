@@ -1,38 +1,51 @@
 ﻿using StoreAppProject.Database;
+using StoreAppProject.Exceptions;
 using StoreAppProject.Models;
+using StoreAppProject.Services.Abstract;
 
 namespace StoreAppProject.Services;
 
-public class ProductService : BaseService<Product>
+public class ProductService : BaseService, IProductService
 {
     public ProductService(StoreAppDatabase database) : base(database)
     {
     }
 
-    public override void Add(Product item)
+    public void Add(Product item)
     {
         _database.Products.Add(item);
     }
 
-    public override List<Product> GetAll()
+    public List<Product> GetAll()
     {
         return _database.Products;
     }
 
-    public override Product GetById(int id)
+    public Product GetById(int id)
     {
-    //    foreach (var product in _database.Products)
-    //    {
-    //        if (product.Id == id)
-    //        {
-    //            return product;
-    //        }
-    //    }
-    //    return null;
-          return _database.Products.FirstOrDefault(p => p.Id == id);
+        //    foreach (var product in _database.Products)
+        //    {
+        //        if (product.Id == id)
+        //        {
+        //            return product;
+        //        }
+        //    }
+        //    return null;
+        
+        var product =  _database.Products.FirstOrDefault(p => p.Id == id);
+        if (product is null)
+        {
+            throw new ProductNotFoundException();
+        }
+        return product;
     }
 
-    public override void Remove(Product item)
+    public Product GetByName(string name)
+    {
+        return _database.Products.FirstOrDefault(p => p.Name == name);
+    }
+
+    public void Remove(Product item)
     {
         var productToRemove = GetById(item.Id);
         if (productToRemove != null)

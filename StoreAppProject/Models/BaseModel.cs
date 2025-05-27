@@ -2,5 +2,13 @@
 
 public abstract class BaseModel
 {
-    public int Id { get; set; }
+    private static int _counter = 0;
+
+    public int Id { get; private set; }
+
+    protected BaseModel()
+    {
+        _counter++;
+        Id = _counter;
+    }
 }
