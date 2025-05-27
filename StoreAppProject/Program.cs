@@ -31,7 +31,7 @@ while (true)
             case 1:
 
                 productService.Add(ProductConsoleInput.ConsoleInput());
-                Console.WriteLine("Product added successfully.");
+                Console.WriteLine("Product added successfullyy.");
                 break;
             case 2:
           
