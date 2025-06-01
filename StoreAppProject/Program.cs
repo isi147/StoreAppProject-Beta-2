@@ -34,7 +34,7 @@ while (true)
                 Console.WriteLine("Product added successfullyy.");
                 break;
             case 2:
-          
+                productService.GetAll().ForEach(Console.WriteLine);
                 break;
             case 3:
                 Console.WriteLine("Enter Product ID:");
@@ -65,7 +65,7 @@ while (true)
     }
     finally
     {
-        Console.WriteLine("Thank you for using the Store App!");
+        database.SaveAll();
     }
 }
 
